@@ -126,7 +126,8 @@ sub _load_content_plugins {
         } elsif ($c->request->accept_only) {
             $c->response->header( 'Vary' => 'Accept' );
         }
-        $c->response->content_type($content_type);
+        $c->response->content_type($content_type)
+            unless exists $config->{leave} and $config->{leave}{$content_type};
     }
 
     return $sclass, $sarg, $content_type;
